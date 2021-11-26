@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 # Author: Steven Bennett A00987431 Set B ACIT1515
-# Date: YYYY/MM/DD 
+# Date: 2021/11/19 
 """Read contents of text file
 ask user to ender a letter
 count words in the file that start with a letter
@@ -56,7 +56,7 @@ Has two parameters
 
     return(num)
 
-def main():
+def exone():
     """The 'core' instructions of you program
     
     These are the instructions executed when your program is loaded by the python
@@ -77,4 +77,4 @@ def main():
 # If module is loaded by the python interpreter (as opposed to being imported)
 # __name__ will equal "__main__"
 if __name__ == "__main__":
-    main()
+    exone()
