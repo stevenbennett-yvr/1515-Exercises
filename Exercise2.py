@@ -13,68 +13,61 @@ count words in the file that start with a letter
 
 def readWords(file):
     """
-Read the contents of the file using the open() and read() command.
-Your function has one parameter, the name of the file, and returns a list containg the contnets of the file where each item in the list is one word.
+(a) Refactor your program to read the file with the readlines() command. 
+The program must use a with block to open the file. 
+This refactoring should only affect the function that reads the file. 
+Use a list comprehension in your function to remove any trailing newline characters from the words.
     """
     with open(file, 'r') as word_file:
-        content = word_file.readlines()
-        newwords = content.split('\n')
+        words = word_file.readlines()
+        wordlist = []
+        for word in words:
+            word = word.replace('\n', '')
+            wordlist.append(word)
         word_file.close()
-    return (newwords)
+    return wordlist
 
-def requestLetter():
+def requestName():
     """
-aks the user to enter a single letter.
-This funciotn has no parameters.
-promts for a letter, which is returne dto the user.
-If the user enters anything other than a-z A-Z the function displays an informtative message nd re-prompts until an invalid letter is entered.
+The function prompts for a name. 
+It returns the name as well as a list of all words containing the name. 
+Matches  are case-insensitive.
     """
-    check = input("Enter a letter from a-z or A-Z: ")[0]
-    while check.isalpha() == False:
-        check = input("Enter a letter from a-z or A-Z: ")[0]
-    letter = check
-    return (letter)
+    check = input("Enter a name: ")
+    i = 0
+    while i < len(check): 
+        if check[i].isalpha() == False:
+            check = input("Enter a real name: ")
+            i = 0
+        else:
+            i += 1
+    name = check
+    return (name)
 
-def example_function():
+def countWords( newwords, name ):
     """
-valide athat something is a letter from a-z or A_Z. 
-Takes a string as a parameter and returns true or false
-    """
-    return 
-
-def countWords( newwords, letter ) -> int:
-    """
-Count the number of words that satrt with a specified letter.
-should not be case sensitive.
-Has two parameters
+(b) Add a new function has the list of words as a parameter. 
     """
     num = 0
+    namein = []
     for word in newwords:
-        for firstchar in word:
-            if word[0] == letter:
-                num += 1
-
-    return(num)
+        if name.lower() in word.lower():
+            num += 1
+            namein.append(word)
+    return num, namein
 
 def main():
-    """The 'core' instructions of you program
-    
-    These are the instructions executed when your program is loaded by the python
-    interpreter.
-
-    If you module is imported into another program these will not be run
+    """
+(c) Update main to display output as shown below.
     """
     file = 'new_words.txt'
-    read = readWords(file)
-    total = len(read)
-    letter = requestLetter()
-    num = countWords( read, letter)
-    print(f'File {file} contains {total} words.')
-    print(f"There are {num} words that start with the letter {letter}")
+    wordlist = readWords(file)
+    total = len(wordlist)
+    name = requestName()
+    num, namein = countWords( wordlist, name )
+    print(f'there are {num} words that contain the name {name}')
+    print(f'and the first three of them are {namein[0]} {namein[1]} {namein[2]}')
     return num
 
-# Check if this is being run as a script/program or imported as a module
-# If module is loaded by the python interpreter (as opposed to being imported)
-# __name__ will equal "__main__"
 if __name__ == "__main__":
     main()
